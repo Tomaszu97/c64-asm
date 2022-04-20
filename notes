@@ -1,0 +1,45 @@
+6502 reference notes
+
+addressing modes (note hardware is little-endian like below but assembler probably uses big-endian [HHLL]):
+    nothing    - implied              - depends on instruction
+    #$BB       - immediate            - use this value
+    $LLHH      - absolute             - use value at address
+    $LLHH,X    - absolute, X indexed  - use value at address LLHH+X
+    ($LLHH)    - indirect             - use value at address stored at address LLHH
+    ($LLHH,X)  - indirect             - use value at address stored at address LLHH+X
+    ($LLHH),X  - indirect             - use value at address+X stored at address LLHH
+    $BB        - relative             - use value at address PC+BB (BB is signed)
+    $LL        - zeropage             - use value at address but address is 8bit only (first 256 bytes only thus zeropage)
+
+registers:
+    PC program counter (16bit, the rest is 8 bit)
+    AC accumulator
+    X
+    Y
+    SR status register
+    SP stack pointer
+
+SR flags:
+    N negative
+    V overflow
+    - ignored bit
+    B break
+    D decimal
+    I interrupt
+    Z zero
+    C carry
+
+instructions:
+    lda:
+        A <- MEM
+    sta:
+        A -> MEM
+    clc:
+        clear carry flag (C)
+    sec:
+        set carry flag
+    adc/sbc:
+        add/substract with carry
+        ! important !
+        always do clc before adc
+        always do sec before sbc
