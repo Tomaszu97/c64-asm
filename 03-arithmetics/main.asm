@@ -10,7 +10,6 @@
         sta $d021
         asl $d021   ; shift left (x2)
         asl $d021   ; shift right (/2) ; obviously in this case these two have no effect
-loop:
-        jmp loop
+loop:   jmp loop
 
 

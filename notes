@@ -1,5 +1,11 @@
 6502 reference notes
 
+numbers:
+    1234     decimal
+    $123F    hexadecimal
+    %1101    binary
+
+
 addressing modes (note hardware is little-endian like below but assembler probably uses big-endian [HHLL]):
     nothing    - implied              - depends on instruction
     #$BB       - immediate            - use this value
@@ -43,3 +49,43 @@ instructions:
         ! important !
         always do clc before adc
         always do sec before sbc
+    tax/tay:
+        A -> X
+        A -> Y
+    txa/tya:
+        X -> A
+        Y -> A
+    bne:
+        branch on result not 0 (flag Z=0)
+    beq:
+        branch on result 0 (flag Z=1)
+
+memory layout:
+
+    screen memory is $0400 - $07FF
+
+    $d020 background color
+    $d021 foreground color
+
+    $d015 sprite enable byte
+    $d000 sprite 1 X coordinate
+    $d001 sprite 1 Y coordinate
+    $d002 sprite 2 X coordinate
+    $d003 sprite 2 Y coordinate
+    etc
+
+    last 8 bytes are sprite pointers, so
+    $07F8
+    $07F9
+    $07FA
+    $07FB
+    $07FC
+    $07FD
+    $07FE
+    $07FF
+    sprites takes 64bytes (0x40) and this is how big are blocks addressed by these, so if we set sprite pointer to
+    #$0001 then address is $0000
+    #$0002 then address is $0040
+    #$0003 then address is $0080
+    #$0004 then address is $00C0
+    etc

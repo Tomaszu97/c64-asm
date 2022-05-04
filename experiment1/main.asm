@@ -1,9 +1,8 @@
- processor 6502     ;
- org $1000          ; SYS 4096
+    processor 6502
+    org $1000
 
 chrout  .equ $ffd2
 plot    .equ $fff0
-
 
 init:   clc
         ldx #$0
